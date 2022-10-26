@@ -113,22 +113,22 @@ class DECOLLEAssistant(Assistant):
 
                 self.optimizer.step()
                 self.optimizer.zero_grad()
-                readout = torch.cat((readout, readouts_t[-1]), dim=-1)
+                readout = torch.cat((readout, readouts_t[-1].cpu()), dim=-1)
                 if self.count_log:
                     count = [count[i] + count_t[i] / input.shape[-1]
                              for i in range(len(count_t))]
                 if self.stats is not None:
                     self.stats.training.loss_sum \
-                        += loss.cpu().data.item() * readouts_t[-1].shape[0]
+                        += loss.cpu().data.item() * readouts_t[-1].cpu().shape[0]
         else:
             spikes, readouts, voltages, count = self.net(input)
             loss = self.error(readouts, voltages, target)
             loss.backward()
 
-            readout = readouts[-1]
+            readout = readouts[-1].cpu()
             if self.stats is not None:
                 self.stats.training.loss_sum\
-                    += loss.cpu().data.item() * readout[-1].shape[0]
+                    += loss.cpu().data.item() * readout.shape[0]
             self.optimizer.step()
             self.optimizer.zero_grad()
 
@@ -136,7 +136,7 @@ class DECOLLEAssistant(Assistant):
             self.stats.training.num_samples += input.shape[0]
             if self.classifier is not None:   # classification
                 self.stats.training.correct_samples += torch.sum(
-                    self.classifier(readouts) == target
+                    self.classifier(readout) == target
                 ).cpu().data.item()
 
         if count is None:
@@ -186,7 +186,7 @@ class DECOLLEAssistant(Assistant):
                     spikes, readouts_t, voltages, count_t = self.net(x)
                     loss = self.error(readouts_t, voltages, target)
 
-                    readout = torch.cat((readout, readouts_t[-1]), dim=-1)
+                    readout = torch.cat((readout, readouts_t[-1].cpu()), dim=-1)
                     if self.count_log:
                         count = [count[i] + count_t[i] / input.shape[-1]
                                  for i in range(len(count_t))]
@@ -197,10 +197,10 @@ class DECOLLEAssistant(Assistant):
                 spikes, readouts, voltages, count = self.net(input)
                 loss = self.error(readouts, voltages, target)
 
-                readout = readouts[-1]
+                readout = readouts[-1].cpu()
                 if self.stats is not None:
                     self.stats.testing.loss_sum \
-                        += loss.cpu().data.item() * readout[-1].shape[0]
+                        += loss.cpu().data.item() * readout.shape[0]
 
             if self.stats is not None:
                 self.stats.testing.num_samples += input.shape[0]
