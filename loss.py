@@ -32,10 +32,9 @@ class DECOLLELoss(_Loss):
         "mean" or "sum"
     """
 
-    def __init__(self, loss_fn: _Loss, reg: float = 0, size_average=None,
-                 reduce=None, reduction: str = 'mean') -> None:
-        super(DECOLLELoss, self).__init__(size_average, reduce, reduction)
-        self.loss_fn = loss_fn(size_average, reduce, reduction)
+    def __init__(self, loss_fn: _Loss, reg: float = 0, **kwargs) -> None:
+        super(DECOLLELoss, self).__init__(**kwargs)
+        self.loss_fn = loss_fn(**kwargs)
         self.reg = reg
 
     def forward(self, readouts, voltages, target):
