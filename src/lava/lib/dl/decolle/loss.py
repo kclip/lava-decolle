@@ -1,4 +1,4 @@
-# Copyright : (c) UC Regents, Emre Neftci
+# Copyright : (c) KCL, Nicolas Skatchkovsky
 # Licence : GPLv3
 
 from torch import Tensor

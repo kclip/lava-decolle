@@ -1,4 +1,4 @@
-# Copyright : (c) UC Regents, Emre Neftci, 2022 Intel Corporation
+# Copyright : (c) KCL, Nicolas Skatchkovsky
 # Licence : GPLv3
 
 import os
@@ -8,8 +8,8 @@ from torch.utils.data import DataLoader
 import lava.lib.dl.slayer as slayer
 
 from tutorials.lava.lib.dl.slayer.nmnist.nmnist import NMNISTDataset, augment
-from loss import DECOLLELoss
-from utils import DECOLLEAssistant
+from src.lava.lib.dl.decolle.loss import DECOLLELoss
+from src.lava.lib.dl.decolle.utils import DECOLLEAssistant
 
 
 class DECOLLENetwork(torch.nn.Module):

@@ -17,7 +17,10 @@ their [GitHub repository](https://github.com/nmi-lab/decolle-public/tree/master)
 `lava-dl` library (https://github.com/lava-nc/lava-dl/)
 
 ## Getting Started
-[NMNIST digit classification](https://github.com/kclip/lava-decolle/blob/main/tutorials/nmnist/train.ipynb) tutorial
+[NMNIST digit classification](https://github.com/kclip/lava-decolle/blob/main/tutorials/lava/lib/dl/decolle/nmnist/train.ipynb) tutorial
+
+[Comparison with SLAYER](https://github.com/kclip/lava-decolle/blob/main/tutorials/lava/lib/dl/decolle/nmnist/slayer_comparison.ipynb)
+
 
 ## License
 

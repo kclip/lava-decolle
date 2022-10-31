@@ -1,4 +1,4 @@
-# Copyright : (c) UC Regents, Emre Neftci, 2022 Intel Corporation
+# Copyright : (c) KCL, Nicolas Skatchkovsky
 # Licence : GPLv3
 
 """Assistant utility for automatically load network from network
