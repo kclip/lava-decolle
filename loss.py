@@ -32,17 +32,13 @@ class DECOLLELoss(_Loss):
         "mean" or "sum"
     """
 
-    def __init__(self, loss_fn: _Loss, reg: float = 0, one_hot_target=False, **kwargs) -> None:
+    def __init__(self, loss_fn: _Loss, reg: float = 0, **kwargs) -> None:
         super(DECOLLELoss, self).__init__(**kwargs)
         self.loss_fn = loss_fn(**kwargs)
         self.reg = reg
-        self.one_hot_target = one_hot_target
 
     def forward(self, readouts, voltages, target):
         loss = 0
-        if self.one_hot_target:
-            target = torch.nn.functional.one_hot(target)
-
         for r, v in zip(readouts, voltages):
             for t in range(r.shape[-1]):
                 loss_t = self.loss_fn(r[..., t], target)

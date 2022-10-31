@@ -133,10 +133,12 @@ class DECOLLEAssistant(Assistant):
             self.optimizer.zero_grad()
 
         if self.stats is not None:
+            if len(target.shape) > 1:
+                target_idx = target.argmax(-1)
             self.stats.training.num_samples += input.shape[0]
             if self.classifier is not None:   # classification
                 self.stats.training.correct_samples += torch.sum(
-                    self.classifier(readout) == target
+                    self.classifier(readout) == target_idx
                 ).cpu().data.item()
 
         if count is None:
@@ -203,12 +205,14 @@ class DECOLLEAssistant(Assistant):
                         += loss.cpu().data.item() * readout.cpu().shape[0]
 
             if self.stats is not None:
+                if len(target.shape) > 1:
+                    target_idx = target.argmax(-1)
                 self.stats.testing.num_samples += input.shape[0]
                 self.stats.testing.loss_sum \
                     += loss.cpu().data.item() * readout.cpu().shape[0]
                 if self.classifier is not None:   # classification
                     self.stats.testing.correct_samples += torch.sum(
-                        self.classifier(readout) == target
+                        self.classifier(readout) == target_idx
                     ).cpu().data.item()
 
             if count is None:
@@ -278,8 +282,10 @@ class DECOLLEAssistant(Assistant):
                     self.stats.validation.loss_sum \
                         += loss.cpu().data.item() * readout.shape[0]
                 if self.classifier is not None:   # classification
+                    if len(target.shape) > 1:
+                        target_idx = target.argmax(-1)
                     self.stats.validation.correct_samples += torch.sum(
-                        self.classifier(readout) == target
+                        self.classifier(readout) == target_idx
                     ).cpu().data.item()
 
             if count is None:
