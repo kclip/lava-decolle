@@ -16,6 +16,11 @@ their [GitHub repository](https://github.com/nmi-lab/decolle-public/tree/master)
 ## Dependencies
 `lava-dl` library (https://github.com/lava-nc/lava-dl/)
 
+## Installation
+* Follow `lava-dl` install instruction [here](https://github.com/lava-nc/lava-dl/#installation).
+* `cd lava-decolle/src`
+* `python -c "import os; from distutils.sysconfig import get_python_lib; open(get_python_lib() + os.sep + 'lava.pth', 'a').write(os.getcwd())"`
+
 ## Getting Started
 [NMNIST digit classification](https://github.com/kclip/lava-decolle/blob/main/tutorials/lava/lib/dl/decolle/nmnist/train.ipynb) tutorial
 
