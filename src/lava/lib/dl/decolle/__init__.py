@@ -1,5 +1,5 @@
-from . import utils
+from . import utils, loss
 
 __all__ = [
-    'utils'
+    'utils', 'loss'
 ]
